@@ -1,0 +1,73 @@
+/* Header */
+.header{
+    position: absolute;
+    top: 0px;
+    height: 56px;
+    width: 100%;
+    background-color: #0072bc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/* Header left */
+.header__left{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.header__left .header__icon{
+    color: #ffffff;
+    cursor: pointer;
+    margin-left: 16px;
+    font-size: 24px;
+}
+.header__left .header__title{
+    color: #ffffff;
+    font-family: MISA Font bold;
+    font-size: 22px;
+    cursor: pointer;
+    margin-left: 16px;
+}
+/* Header middle */
+.header__middle{
+    flex: 1;
+}
+/* Header right */
+.header__right{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.operation span{
+    margin-right: 24px;
+}
+
+.operation i{
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.user{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 16px;
+}
+.profile__image{
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+}
+
+.profile__name{
+    padding: 0px 5px;
+    font-size: 13px;
+    color: #ffffff;
+    width: 120px;
+}
+
+.profile__choice{
+    color: #ffffff;
+}

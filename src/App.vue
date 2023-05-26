@@ -1,26 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <TheHeader v-on:openOrCloseSidebar="openOrCloseSidebar"></TheHeader>
+  <div class="body">
+    <TheSidebar v-if="isShowSidebar"></TheSidebar>
+    <TheMainContent>
+    
+    </TheMainContent>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TheHeader from './layouts/TheHeader.vue';
+import TheMainContent from './layouts/TheMainContent.vue';
+import TheSidebar from './layouts/TheSidebar.vue';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  name: "App",
+  methods: {
+    /**
+     * Mở hoặc đóng sidebar
+     * Author: TrangDTT (22/05/2023)
+     */
+    openOrCloseSidebar: function(){
+      this.isShowSidebar = !this.isShowSidebar;
+    }
+  },
+  data(){
+    return {
+      // Hiển thị sidebar
+      isShowSidebar: true,
+    }
+  },
+  components: { TheSidebar, TheHeader, TheMainContent }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import '@/css/index.css';
 </style>

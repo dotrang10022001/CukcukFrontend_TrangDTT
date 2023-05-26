@@ -1,0 +1,77 @@
+/* Định dạng lại thanh cuộn */
+.menu::-webkit-scrollbar {
+    width: 0px;
+    height: 4px;
+}
+
+.menu::-webkit-scrollbar-track {
+    background: #ffffff8f;
+    border-radius: 2px;
+}
+
+.menu::-webkit-scrollbar-thumb {
+    background: #2120209d;
+    border-radius: 2px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 230px;
+    height: 100%;
+    background-color: #0072bc;
+    font-size: 13px;
+    color: #ffffff;
+    border-top: solid 1px #016087;
+    box-sizing: border-box;
+}
+
+.sidebar:hover .menu::-webkit-scrollbar{
+    width: 4px;
+}
+
+/* Menu */
+.menu {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    max-height: calc(100% - 40px);
+    overflow-y: auto;
+}
+
+/* Menu item */
+.menu__item {
+    height: 40px;
+    background-color: #0072bc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-bottom: solid 1px #016087;
+    border-top: solid 1px #038ac1;
+}
+.menu__item:hover{
+    background-color: #eb7728;
+}
+.menu__icon{
+    width: 44px;
+    height: 40px;
+    text-align: center;
+}
+.menu__item i{
+    font-size: 20px;
+    line-height: 40px;
+}
+.menu__arrow{
+    position: absolute;
+    right: 12px;
+}
+.menu__arrow i{
+    font-size: 16px;
+}
+.menu__item:hover .menu__arrow{
+    display: none;
+}
+
+.menu__item--child{
+    background-color: #004999;
+}

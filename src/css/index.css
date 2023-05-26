@@ -1,0 +1,30 @@
+/* Fonts */
+@font-face {
+    font-family: MISA Font;
+    src: url(@/assets/fonts/TAHOMA_0.TTF);
+}
+
+@font-face {
+    font-family: MISA Font bold;
+    src: url(@/assets/fonts/TAHOMA_BOLD.TTF);
+}
+
+/* General css */
+*{
+    font-family: MISA Font;
+}
+body{
+    margin: 0;
+    position: relative;
+}
+
+/* Import font icon library */
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+
+.body{
+    position: absolute;
+    top: 56px;
+    width: 100%;
+    height: calc(100vh - 56px);
+    display: flex;
+}

@@ -1,0 +1,19 @@
+.material{
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.material__header{
+    background-color: red;
+    height: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.material__content{
+    background-color: green;
+    flex: 1;
+}
