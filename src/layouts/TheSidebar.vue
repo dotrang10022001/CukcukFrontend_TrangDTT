@@ -8,7 +8,7 @@
             <li class="menu__item" v-on:click="showOrHideReportChilds">
                 <span class="menu__icon"><i class="fa-solid fa-chart-pie"></i></span>
                 <span>Báo cáo</span>
-                <span class="menu__arrow"><i :class="{'fa-regular fa-circle-up': isShowReportChilds, 'fa-regular fa-circle-down': !isShowReportChilds}"></i></span>
+                <span class="menu__arrow"><i :class="{'fa-solid fa-angle-up': isShowReportChilds, 'fa-solid fa-angle-down': !isShowReportChilds}"></i></span>
             </li>
             <li class="menu__item menu__item--child" v-show="isShowReportChilds">
                 <span class="menu__icon"></span>
@@ -83,7 +83,7 @@
             <li class="menu__item" v-on:click="showOrHideOnlineChilds">
                 <span class="menu__icon"><i class="fa-solid fa-globe"></i></span>
                 <span>Bán hàng online</span>
-                <span class="menu__arrow"><i :class="{'fa-regular fa-circle-up': isShowOnlineChilds, 'fa-regular fa-circle-down': !isShowOnlineChilds}"></i></span>
+                <span class="menu__arrow"><i :class="{'fa-solid fa-angle-up': isShowOnlineChilds, 'fa-solid fa-angle-down': !isShowOnlineChilds}"></i></span>
             </li>
             <li class="menu__item menu__item--child" v-show="isShowOnlineChilds">
                 <span class="menu__icon"></span>
@@ -100,7 +100,7 @@
             <li class="menu__item" v-on:click="showOrHideHelperChilds">
                 <span class="menu__icon"><i class="fa-solid fa-circle-question"></i></span>
                 <span>Trợ giúp</span>
-                <span class="menu__arrow"><i :class="{'fa-regular fa-circle-up': isShowHelperChilds, 'fa-regular fa-circle-down': !isShowHelperChilds}"></i></span>
+                <span class="menu__arrow"><i :class="{'fa-solid fa-angle-up': isShowHelperChilds, 'fa-solid fa-angle-down': !isShowHelperChilds}"></i></span>
             </li>
             <li class="menu__item menu__item--child" v-show="isShowHelperChilds">
                 <span class="menu__icon"></span>
@@ -120,7 +120,7 @@
             </li>
         </ul>
     </div>
-    <TheCatelog v-if="isShowCatelog"></TheCatelog>
+    <TheCatelog v-if="isShowCatelog" v-click-outside="handleClickOutsideCatelog"></TheCatelog>
 </template>
 <script>
 import TheCatelog from '@/layouts/TheCatelog.vue';
@@ -154,6 +154,13 @@ export default {
          */
         showOrHideCatelog: function(){
             this.isShowCatelog = !this.isShowCatelog;
+        },
+        /**
+         * Xử lý sự kiện click ra ngoài catelog
+         * Author: TrangDTT (03/06/2023)
+         */
+        handleClickOutsideCatelog: function(){
+            this.isShowCatelog = false;
         }
     },
     data(){

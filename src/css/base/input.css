@@ -1,0 +1,43 @@
+.popup__control{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input__label{
+    width: 100px;
+    font-family: MISA Font;
+    font-size: 13px;
+    text-align: left;
+}
+
+.input__label span:last-child{
+    color: #e61d1d;
+}
+
+.input__label span:first-child{
+    color: black;
+}
+
+.input__icon{
+    margin-left: 8px;
+    color: #e61d1d;
+    height: 27px;
+    line-height: 27px;
+}
+
+.popup__control .input__content{
+    flex: 1;
+    height: 25px;
+    border: solid 1px #cccccc;
+    padding: 0px 8px;
+}
+
+.popup__control .input__content:focus{
+    outline: none;
+    border: solid 1px #0072bc;
+}
+
+.border--error{
+    border: solid 1px #e61d1d !important;
+}

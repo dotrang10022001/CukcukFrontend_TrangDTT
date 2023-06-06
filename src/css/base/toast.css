@@ -1,0 +1,83 @@
+/* Toast message */
+.toast{
+    position: fixed;
+    z-index: 9;
+    cursor: pointer;
+    top: 8px;
+    right: 8px;
+    border-radius: 4px;
+    box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.078);
+    padding: 16px;
+    min-width: fit-content;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation-name: appear;
+    animation-duration: 1s;
+}
+.toast__header{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 13px;
+}
+.toast__icon{
+    padding-right: 8px;
+    font-size: 20px;
+}
+.toast__type{
+    text-align: left;
+    font-family: MISA Font;
+    font-size: 13px;
+}
+.toast__content{
+    text-align: left;
+    font-family: MISA Font;
+    font-size: 13px;
+}
+.toast__close{
+    padding-left: 16px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.toast__icon--success{
+    color: #50B83C;
+}
+.toast__icon--error{
+    color: #de3618;
+}
+.toast__icon--warning{
+    color: #f49342;
+}
+.toast__icon--info{
+    color: rgb(0, 140, 255);
+}
+
+.toast__type--success{
+    color: #50b83c;
+    font-family: MISA Font bold;
+}
+.toast__type--error{
+    color: #de3618;
+    font-family: MISA Font bold;
+}
+.toast__type--warning{
+    color: #f49342;
+    font-family: MISA Font bold;
+}
+.toast__type--info{
+    color: rgb(0, 140, 255);
+    font-family: MISA Font bold;
+}
+/* Hiệu ứng xuất hiện toast */
+@keyframes appear {
+    from {
+        opacity: 0.5;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

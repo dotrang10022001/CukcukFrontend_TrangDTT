@@ -2,7 +2,7 @@
 .header{
     position: absolute;
     top: 0px;
-    height: 56px;
+    height: 55px;
     width: 100%;
     background-color: #0072bc;
     display: flex;
@@ -14,23 +14,45 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    width: 230px;
 }
 .header__left .header__icon{
     color: #ffffff;
     cursor: pointer;
     margin-left: 16px;
-    font-size: 24px;
+    font-size: 18px;
 }
 .header__left .header__title{
     color: #ffffff;
     font-family: MISA Font bold;
-    font-size: 22px;
+    font-size: 28px;
     cursor: pointer;
-    margin-left: 16px;
+    margin-left: 8px;
 }
 /* Header middle */
 .header__middle{
     flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 8px;
+    margin-right: 24px;
+}
+
+.header__middle .dropdown__content{
+    background-color: #005082;
+    color: #ffffff;
+    height: 32px;
+    border: none;
+    background-image: url(@/assets/icons/arrow-down2.svg);
+}
+
+.header__middle .dropdown__content:focus{
+    border: none;
+}
+
+.header__middle .dropdown__option{
+    top: 32px;
+    cursor: pointer;
 }
 /* Header right */
 .header__right{
@@ -40,13 +62,13 @@
     cursor: pointer;
 }
 
-.operation span{
-    margin-right: 24px;
+.operation i{
+    color: #ffffff;
+    font-size: 22px!important;
 }
 
-.operation i{
-    font-size: 24px;
-    color: #ffffff;
+.operation .operation--notification{
+    margin-right: 24px;
 }
 
 .user{
@@ -54,6 +76,7 @@
     justify-content: flex-start;
     align-items: center;
     padding: 16px;
+    margin-left: 8px;
 }
 .profile__image{
     width: 32px;

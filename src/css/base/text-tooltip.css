@@ -1,0 +1,14 @@
+.text-and-tooltip{
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+}
+.text-and-tooltip span{
+    font-size: 13px;
+    font-family: MISA Font;
+}
+
+.text-and-tooltip span:hover+.tooltip{
+    display: block;
+    opacity: 1;
+}

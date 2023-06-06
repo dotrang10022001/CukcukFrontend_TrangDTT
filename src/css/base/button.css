@@ -1,0 +1,23 @@
+.button{
+    height: 25px;
+    padding: 0px 10px;
+    font-size: 13px;
+    background-color: #fafafa;
+    border: none;
+    border-radius: 2px;
+    border: solid 1px #cccccc;
+    cursor: pointer;
+    min-width: 70px;
+    background-image: linear-gradient(#fafafa, #eeeeee);
+    position: relative;
+}
+
+.button:hover, .button:active{
+    background-color: #e4f2ea;
+    border: solid 1px #0072bc;
+}
+
+.button:hover .tooltip{
+    display: block;
+    opacity: 1;
+}

@@ -1,19 +1,50 @@
 .material{
-    padding: 8px;
     display: flex;
     flex-direction: column;
+    padding: 8px;
+    flex: 1;
 }
 
 .material__header{
-    background-color: red;
-    height: 36px;
+    height: 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+}
+
+.material__header .left{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.material__header .title{
+    color: #000000;
+    font-size: 22px;
+}
+
+.material__header .left .icon{
+    color: #0072bc;
+    margin-left: 8px;
+    margin-right: 12px;
+}
+
+.material__header .subtitle{
+    font-size: 16px;
+    color: #0072bc;
+}
+
+.material__header .right{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.button--setting{
+    margin-right: 8px;
 }
 
 .material__content{
-    background-color: green;
     flex: 1;
+    margin-top: 8px;
 }

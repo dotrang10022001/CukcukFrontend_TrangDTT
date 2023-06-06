@@ -1,0 +1,15 @@
+.icon-and-tooltip{
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+}
+.icon-and-tooltip i{
+    line-height: 24px;
+    font-size: 16px;
+    z-index: 10;
+}
+
+.icon-and-tooltip span:hover+.tooltip{
+    display: block;
+    opacity: 1;
+}

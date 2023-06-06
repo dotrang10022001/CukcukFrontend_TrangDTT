@@ -1,0 +1,90 @@
+/* Dialog container */
+.dialog-container {
+    background-color: rgba(0, 0, 0, 0.158);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 8;
+    cursor: pointer;
+}
+
+/* Dialog */
+.dialog {
+    width: 400px;
+    background-color: #0072bc;
+    padding: 6px;
+    padding-top: 2px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 1. Dialog header */
+.dialog__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding-bottom: 2px;
+    font-size: 14px;
+    font-family: MISA Font;
+    max-height: fit-content;
+}
+
+.dialog__title {
+    text-align: left;
+}
+
+.dialog__close {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* 2. Dialog content */
+.dialog__content {
+    font-family: MISA Font;
+    font-size: 13px;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    flex: 1;
+}
+
+.dialog__icon {
+    margin-right: 16px;
+    font-size: 24px;
+}
+
+.dialog__icon--error {
+    color: #de3618;
+}
+
+.dialog__icon--info {
+    color: rgb(0, 140, 255);
+}
+
+.dialog__icon--warning {
+    color: #f49342;
+}
+
+/* 3. Dialog footer */
+.dialog__footer {
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 8px;
+    background-color: #fff;
+    align-items: center;
+    height: 40px;
+    padding-right: 10px;
+    border-top: solid 1px #cccccc;
+}
+

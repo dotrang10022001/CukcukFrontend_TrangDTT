@@ -1,0 +1,21 @@
+#popup--store{
+    width: 35%;
+}
+
+#popup__content--store{
+    display: flex;
+    flex-direction: column;
+}
+
+#popup__content--store textarea{
+    height: 50px;
+    flex: 1;
+    outline: none;
+    border: solid 1px #cccccc;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+#popup__content--store textarea:focus{
+    border: solid 1px #0072bc;
+}

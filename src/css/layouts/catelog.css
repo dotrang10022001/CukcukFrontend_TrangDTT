@@ -64,7 +64,7 @@
 
 .body__item {
     color: #212121;
-    height: 28px;
+    height: 26px;
 }
 
 .catelog__body li{
@@ -79,7 +79,7 @@
     border-bottom: 1px solid #c1c1c1;
     content: "";
     width: 20px;
-    height: 14px;
+    height: 13px;
 }
 
 .catelog__body li:not(:last-child)::after{
@@ -89,7 +89,7 @@
     border-left: 1px solid #c1c1c1;
     content: "";
     width: 20px;
-    height: 14px;
+    height: 13px;
 }
 
 .body__item div {
@@ -97,7 +97,7 @@
     left: 32px;
     padding: 0px 10px 0px 4px;
     max-width: fit-content;
-    line-height: 28px;
+    line-height: 26px;
     cursor: pointer;
 }
 

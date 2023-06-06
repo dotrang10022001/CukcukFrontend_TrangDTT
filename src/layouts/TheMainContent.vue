@@ -3,7 +3,7 @@
 </template>
 <script>
 import MaterialView from '@/views/MaterialView.vue';
-export default{
+export default {
     name: "TheMainContent",
     components: {
         MaterialView

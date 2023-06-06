@@ -1,16 +1,16 @@
 /* Định dạng lại thanh cuộn */
 .menu::-webkit-scrollbar {
-    width: 0px;
+    width: 4px;
     height: 4px;
 }
 
 .menu::-webkit-scrollbar-track {
-    background: #ffffff8f;
+    background: transparent;
     border-radius: 2px;
 }
 
 .menu::-webkit-scrollbar-thumb {
-    background: #2120209d;
+    background: transparent;
     border-radius: 2px;
 }
 
@@ -26,7 +26,11 @@
 }
 
 .sidebar:hover .menu::-webkit-scrollbar{
-    width: 4px;
+    background-color: #ffffff8f;
+}
+
+.sidebar:hover .menu::-webkit-scrollbar-thumb{
+    background: #2120209d;
 }
 
 /* Menu */
@@ -36,6 +40,7 @@
     margin: 0px;
     max-height: calc(100% - 40px);
     overflow-y: auto;
+    position: relative;
 }
 
 /* Menu item */
@@ -45,7 +50,6 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    position: relative;
     border-bottom: solid 1px #016087;
     border-top: solid 1px #038ac1;
 }
