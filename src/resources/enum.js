@@ -15,6 +15,13 @@ const MISA_ENUMS = {
         // Nút chứa cả icon và văn bản
         ICON_TEXT: 1
     },
+    // Loại combobox
+    COMBOBOX_TYPE: {
+        // Combobox hiển thị dropdown bên trên
+        TOP: 0,
+        // Combobox hiển thị dropdown bên dưới
+        BOTTOM: 1
+    },
     // Loại sự kiện
     EVENT_TYPE: {
         // Đóng hộp thoại/popup
@@ -38,32 +45,8 @@ const MISA_ENUMS = {
         // Tải lại danh sách nhóm nguyên vật liệu
         RELOAD_CATEGORY: 9
     },
-    // Loại input
-    INPUT_TYPE: {
-        // Văn bản
-        TEXT: 0,
-        // Số nguyên
-        INTEGER: 1,
-        // Số thập phân
-        DECIMAL: 2
-    },
-    // Mã phím
-    KEY_CODE: {
-        // Phím số 0
-        ZERO: 96,
-        // Phím số 9
-        NINE: 105,
-        // Phím tab
-        TAB: 9,
-        // Phím backspace
-        BACKSPACE: 8,
-        // Phím mũi tên trái
-        ARROW_LEFT: 37,
-        // Phím mũi tên phải
-        ARROW_RIGHT: 39,
-        // Phím , thập phân
-        COMMA: 188
-    },
+    // Độ dài tối đa của input number
+    NUMBER_MAX_LENGTH: 18,
     // Mã lỗi
     ERROR_CODE: {
         // Dữ liệu không hợp lệ

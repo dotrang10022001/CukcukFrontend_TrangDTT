@@ -16,6 +16,9 @@
             <MISAButton text="Nạp" :type="MISA_ENUMS.BUTTON_TYPE.ICON_TEXT" :iconClass="MISA_RESOURCES.ICON_CLASS.LOAD"
                 v-on:click="handleClickButtonLoad" :tooltipText="TOOLTIP_TEXT.RELOAD">
             </MISAButton>
+            <MISAButton text="Xuất khẩu" :type="MISA_ENUMS.BUTTON_TYPE.ICON_TEXT" :iconClass="MISA_RESOURCES.ICON_CLASS.EXPORT"
+                v-on:click="handleClickButtonExport" :tooltipText="TOOLTIP_TEXT.EXPORT" :iconColor="MISA_RESOURCES.ICON_BUTTON_COLOR.SECONDARY">
+            </MISAButton>
         </div>
         <div class="table__content">
             <table>
@@ -156,6 +159,7 @@
             </div>
         </div>
     </div>
+    <MISALoading v-if="showLoadPage"></MISALoading>
     <MISADialog ref="dialog" v-show="isShowDialog" v-on:closeDialogNotify="closeDialogNotify"
         v-on:handleClickDialogButton="handleEvent"></MISADialog>
     <MISAToast ref="toast" v-show="isShowToast" v-on:closeToastMessage="closeToastMessage"></MISAToast>
@@ -241,7 +245,7 @@ export default {
          */
          handleOnKeyboardShortcuts: function(event){
             // Phím tắt cho thao tác thêm
-            if(event.ctrlKey && (event.key == 'a' || event.key == 'A')) {
+            if(event.ctrlKey && (event.key == 'g' || event.key == 'G')) {
                 event.preventDefault();
                 this.handleClickButtonAdd();
             }
@@ -264,6 +268,11 @@ export default {
             if(event.ctrlKey && (event.key == 'l' || event.key == 'L')) {
                 event.preventDefault();
                 this.handleClickButtonLoad();
+            }
+            // Phím tắt cho thao tác xuất khẩu
+            if(event.ctrlKey && (event.key == 'p' || event.key == 'P')) {
+                event.preventDefault();
+                this.handleClickButtonExport();
             }
         },
         /**
@@ -364,6 +373,40 @@ export default {
          */
         handleClickButtonEdit: function () {
             if (this.selectedMaterialID != '') this.$emit("openMaterialInfoPopup", { popupType: MISA_ENUMS.POPUP_TYPE.EDIT, data: this.selectedMaterialID });
+        },
+        /**
+         * Xử lý sự kiện click button xuất khẩu
+         * Author: TrangDTT (07/06/2023)
+         */
+        handleClickButtonExport: async function(){
+            try {
+                // 1. Hiển thị loading
+                this.showLoadPage = true;
+
+                // 2. Gọi API export file excel
+                let responseData = await MATERIAL_SERVICE.exportExcel(MISA_HELPERS.GET_FILTER_STRING(this.filterRule.materialCode, this.filterInfo.materialCode), MISA_HELPERS.GET_FILTER_STRING(this.filterRule.materialName, this.filterInfo.materialName),
+                    this.filterInfo.property.key, MISA_HELPERS.GET_FILTER_STRING(this.filterRule.unitName, this.filterInfo.unitName), MISA_HELPERS.GET_FILTER_STRING(this.filterRule.categoryName, this.filterInfo.categoryName),
+                    MISA_HELPERS.GET_FILTER_STRING(this.filterRule.note, this.filterInfo.note), this.filterInfo.isStopUsing.key == MISA_ENUMS.STOP_USING.NO ? false : true);
+
+                // 3. Xử lý dữ liệu trả về
+                const url = URL.createObjectURL(new Blob([responseData], {
+                    type: MISA_RESOURCES.EXCEL_FILE.TYPE
+                }));
+
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', MISA_RESOURCES.EXCEL_FILE.NAME.MATERIAL);
+                document.body.appendChild(link);
+                link.click();
+
+            } catch (error) {
+                console.log(error);
+                // Xử lý ngoại lệ
+                this.displayDialogForException(error, MISA_RESOURCES.DIALOG_TITLE.EXPORT + this.OBJECT_NAME);
+            } finally {
+                // Ẩn loading
+                this.showLoadPage = false;
+            }
         },
         /**
          * Xử lý sự kiện click button nạp
@@ -660,6 +703,8 @@ export default {
             isShowDialog: false,
             // Hiển thị loading
             isShowLoading: false,
+            // Hiển thị loading trang
+            showLoadPage: false,
             // Hiển thị toast message
             isShowToast: false,
             // Số thứ tự bản ghi bắt đầu

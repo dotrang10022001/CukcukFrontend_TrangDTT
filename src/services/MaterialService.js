@@ -39,6 +39,24 @@ class MaterialService extends BaseService {
         let response = await axios.get(URL + this.controller + "/GetNewCode/" + startStr, { timeout: TIMEOUT });
         return response.data;
     }
+
+    /**
+     * Xuất danh sách nguyên vật liệu
+     * @param {*} materialCode Mã nguyên vật liệu
+     * @param {*} materialName Tên nguyên vật liệu
+     * @param {*} property Tính chất
+     * @param {*} unitName Tên đơn vị
+     * @param {*} categoryName Tên nhóm nguyên vật liệu
+     * @param {*} note Ghi chú
+     * @param {*} isStopUsing Ngưng sử dụng
+     * @returns Response data
+     * Author: TrangDTT (08/06/2023)
+     */
+    async exportExcel(materialCode, materialName, property, unitName, categoryName, note, isStopUsing){
+        let response = await axios.get(URL + this.controller + "/ExportExcel?materialCode=" + materialCode + "&materialName=" + materialName + "&property=" + property
+        + "&unitName=" + unitName + "&categoryName=" + categoryName + "&note=" + note + "&isStopUsing=" + isStopUsing, { responseType: 'blob', timeout: TIMEOUT });
+        return response.data;
+    }
 }
 const MATERIAL_SERVICE = new MaterialService();
 export default MATERIAL_SERVICE;

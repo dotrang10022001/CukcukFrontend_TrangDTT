@@ -1,7 +1,7 @@
 /* Toast message */
 .toast{
     position: fixed;
-    z-index: 9;
+    z-index: 11;
     cursor: pointer;
     top: 8px;
     right: 8px;

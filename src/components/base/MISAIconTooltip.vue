@@ -1,6 +1,6 @@
 <template>
     <span class="icon-and-tooltip">
-        <span><i :class="iconClass"></i></span>
+        <div class="icon"><i :class="iconClass"></i></div>
         <MISATooltip :text="tooltipText"></MISATooltip>
     </span>
 </template>

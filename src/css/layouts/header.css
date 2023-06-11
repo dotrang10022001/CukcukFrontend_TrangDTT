@@ -62,6 +62,11 @@
     cursor: pointer;
 }
 
+.operation{
+    display: flex;
+    align-items: center;
+}
+
 .operation i{
     color: #ffffff;
     font-size: 22px!important;

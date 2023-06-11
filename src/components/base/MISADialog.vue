@@ -67,13 +67,7 @@ export default {
          * Author: TrangDTT (05/05/2023)
          */
         handleClickOutsideDialog: function () {
-            if (this.isShowBtnThird) {
-                this.handleClickDialogButton(this.eventForBtnThird);
-            } else if (this.isShowBtnSecondary) {
-                this.handleClickDialogButton(this.eventForBtnSecondary);
-            } else {
-                this.handleClickDialogButton(this.eventForBtnPrimary)
-            }
+            this.closeDialogNotify();
         },
         /**
          * Hàm thiết lập thông tin thông báo
@@ -129,8 +123,7 @@ export default {
             // Icon class
             ICON_CLASS: MISA_RESOURCES.ICON_CLASS,
             // Tooltip text
-            TOOLTIP_TEXT: MISA_RESOURCES.TOOLTIP_TEXT
-
+            TOOLTIP_TEXT: MISA_RESOURCES.TOOLTIP_TEXT,
         }
     }
 }

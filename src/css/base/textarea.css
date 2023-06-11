@@ -1,0 +1,46 @@
+.popup__control{
+    width: 100%;
+    display: flex;
+}
+
+.textarea__label{
+    width: 100px;
+    font-family: MISA Font;
+    font-size: 13px;
+    text-align: left;
+    display: flex;
+    height: 100%;
+}
+
+.textarea__label span:last-child{
+    color: #e61d1d;
+}
+
+.textarea__label span:first-child{
+    color: black;
+}
+
+.textarea__icon{
+    margin-left: 8px;
+    color: #e61d1d;
+    height: 27px;
+    line-height: 27px;
+}
+
+.popup__control textarea{
+    min-height: 52px;
+    max-height: 120px;
+    flex: 1;
+    outline: none;
+    border: solid 1px #cccccc;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.popup__control textarea:focus{
+    border: solid 1px #0072bc;
+}
+
+.border--error{
+    border: solid 1px #e61d1d!important;
+}

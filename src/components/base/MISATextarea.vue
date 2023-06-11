@@ -1,25 +1,23 @@
 <template>
     <div class="popup__control">
-        <label class="input__label" v-if="label != ''">
+        <label class="textarea__label" v-if="label != ''">
             <MISATextTooltip :text="label" :tooltipText="tooltipText"></MISATextTooltip> <span v-if="isRequired">(*)</span>
         </label>
-        <input class="input__content" ref="input" :type="type" :placeholder="placeholder" :value="modelValue"
-            :class="{ 'border--error': !isValid}"
-            v-on:keydown="handleKeyDownInput" v-on:focus="handleOnFocusInput" v-on:keyup="handleKeyUpInput"
-            v-on:blur="handleOnBlurInput" />
-        <MISAIconTooltip v-if="!isValid" class="input__icon" :tooltipText="error" :iconClass="ICON_CLASS.ERROR">
+        <textarea :value="modelValue"
+            :class="{ 'border--error': !isValid }" v-on:focus="handleOnFocusTextarea"
+            v-on:input="handleOnInputTextarea" v-on:blur="handleOnBlurTextarea"></textarea>
+        <MISAIconTooltip v-if="!isValid" class="textarea__icon" :tooltipText="error" :iconClass="ICON_CLASS.ERROR">
         </MISAIconTooltip>
     </div>
 </template>
 <script>
 import MISA_RESOURCES from '@/resources/resource';
 import MISA_HELPERS from '@/resources/helper';
-import MISA_ENUMS from '@/resources/enum';
 export default {
-    name: "MISAInput",
+    name: "MISATextarea",
     computed: {
         /**
-         * Xác định tính hợp lệ của input
+         * Xác định tính hợp lệ của textarea
          * Author: TrangDTT (30/04/2023)
          */
         isValid: function () {
@@ -36,38 +34,29 @@ export default {
     },
     methods: {
         /**
-         * Xử lý sự kiện format số nguyên
-         * @param {*} event Sự kiện nhấc phím
+         * Xử lý sự kiện nhập vào ô textarea
+         * @param {*} event Sự kiện nhập
          * Author: TrangDTT (05/06/2023)
          */
-        handleKeyUpInput: function (event) {
+        handleOnInputTextarea: function (event) {
             this.$emit("update:modelValue", event.target.value);
         },
         /**
-         * Xử lý sự kiện nhấn phím nhập vào dữ liệu
-         * @param {*} event Sự kiện nhập vào dữ liệu
-         * Author: TrangDTT (05/06/2023)
-         */
-        handleKeyDownInput: function (event) {
-            console.log(event);
-        },
-        /**
-         * Xử lý sự kiện focus ô input
+         * Xử lý sự kiện focus ô textarea
          * Author: TrangDTT (30/04/2023)
          */
-        handleOnFocusInput: function () {
+        handleOnFocusTextarea: function () {
             this.$emit('update:error', '');
         },
         /**
-         * Xử lý sự kiện blur ô input
+         * Xử lý sự kiện blur ô textarea
          * Author: TrangDTT (30/04/2023)
          */
-        handleOnBlurInput: function () {
+        handleOnBlurTextarea: function () {
             this.validate();
-            if (this.name == "materialName") this.$emit("handleBlurMaterialName");
         },
         /**
-         * Validate nội dung input
+         * Validate nội dung textarea
          * Author: TrangDTT (01/05/2023)
          */
         validate: function () {
@@ -88,21 +77,6 @@ export default {
                         valid = (this.modelValue.length > this.validationRule[key]) ? false : true;
                         break;
 
-                    // Kiểm tra định dạng mã kho
-                    case this.VALIDATION_RULE.STORE_CODE:
-                        error = this.label + this.VALIDATION_ERROR.INCORRECT_FORMAT;
-                        valid = MISA_HELPERS.CHECK_STORE_CODE(this.modelValue);
-                        break;
-                    // Kiểm tra định dạng mã nhóm nguyên vật liệu
-                    case this.VALIDATION_RULE.CATEGORY_CODE:
-                        error = this.label + this.VALIDATION_ERROR.INCORRECT_FORMAT;
-                        valid = MISA_HELPERS.CHECK_CATEGORY_CODE(this.modelValue);
-                        break;
-                    // Kiểm tra định dạng mã nguyên vật liệu
-                    case this.VALIDATION_RULE.MATERIAL_CODE:
-                        this.$emit("requestCheckMaterialCode", this.label);
-                        break;
-
                     default:
                         break;
                 }
@@ -118,17 +92,12 @@ export default {
          * Author: TrangDTT (30/04/2023)
          */
         focusInput: function () {
-            this.$refs.input.focus();
+            this.$refs.textarea.focus();
         }
     },
     props: {
         // Nhãn input
         label: {
-            type: String,
-            default: ""
-        },
-        // Hint
-        placeholder: {
             type: String,
             default: ""
         },
@@ -151,30 +120,16 @@ export default {
                 return "";
             }
         },
-        // Tên
-        name: {
-            type: String,
-            default: ""
-        },
         // Tooltip text
         tooltipText: {
             type: String,
             default: ""
-        },
-        // Loại input
-        type: {
-            type: String,
-            default: "text"
         },
     },
     data() {
         return {
             // Resources
             MISA_RESOURCES: MISA_RESOURCES,
-            // Enums
-            MISA_ENUMS: MISA_ENUMS,
-            // Helpers
-            MISA_HELPERS: MISA_HELPERS,
             // Luật validate
             VALIDATION_RULE: MISA_RESOURCES.VALIDATION_RULE,
             // Lỗi validate
@@ -185,9 +140,9 @@ export default {
             TOOLTIP_TEXT: MISA_RESOURCES.TOOLTIP_TEXT
         }
     },
-    emits: ["update:error", "update:modelValue", "requestCheckMaterialCode", "handleBlurMaterialName"]
+    emits: ["update:error", "update:modelValue"]
 }
 </script>
 <style>
-@import '@/css/base/input.css';
+@import '@/css/base/textarea.css';
 </style>

@@ -60,13 +60,8 @@
     cursor: pointer;
 }
 
-.arrow--disable{
-    color: #cccccc!important;
-    cursor: not-allowed !important;
-}
-
 .arrow--first-page, .arrow--next-page{
-    margin-right: 16px;
+    margin-right: 8px;
 }
 
 .paging__info{
@@ -91,7 +86,7 @@
     border: solid 1px #0072bc;
 }
 
-.table__footer .left .load span{
+.table__footer .left .icon{
     color: #757575;
     font-size: 18px;
     padding: 0px 3px;
@@ -99,7 +94,7 @@
     cursor: pointer;
 }
 
-.table__footer .load span:hover{
+.table__footer .icon:hover{
     background-color: #eeeeee;
     border: solid 1px #cccccc;
     border-radius: 4px;
@@ -113,6 +108,7 @@
 }
 
 .table__footer .tooltip{
+    background-color: #616161;
     top: -40px;
 }
 
@@ -165,7 +161,7 @@
     width: 130px;
     position: absolute;
     z-index: 2;
-    top: -80px;
+    top: -78px;
     left: 0px;
     border-radius: 0px;
     padding: 0px;
@@ -335,3 +331,13 @@ td:has(.table__loading){
     }
 }
 
+.arrow--disable i{
+    color: #cccccc!important;
+    cursor: not-allowed !important;
+}
+
+.arrow--disable .icon{
+    background-color: #fff!important;
+    border: none!important;
+    cursor: not-allowed!important;
+}

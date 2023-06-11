@@ -12,7 +12,7 @@
                 <span v-if="canAdd" :class="{ 'icon--error': !isValid }" v-on:click="requestOpenAddPopup"><i
                         class="fa-solid fa-plus"></i></span>
             </div>
-            <div class="combobox__option" v-if="isShowListOptions">
+            <div class="combobox__option" v-if="isShowListOptions" :class="{'combobox__option--top': isTop, 'combobox__option--bottom': isBottom}">
                 <div class="option__content">
                     <ul class="option__data">
                         <li class="option__item"
@@ -31,6 +31,7 @@
 <script>
 import MISA_HELPERS from '@/resources/helper';
 import MISA_RESOURCES from '@/resources/resource';
+import MISA_ENUMS from '@/resources/enum';
 export default {
     name: "MISACombobox",
     mounted() {
@@ -44,6 +45,20 @@ export default {
          */
         isValid: function () {
             return this.error === "";
+        },
+        /**
+         * Loại combobox hiển thị dropdown phía trên
+         * Author: TrangDTT (07/06/2023)
+         */
+        isTop: function(){
+            return this.comboboxType === MISA_ENUMS.COMBOBOX_TYPE.TOP;
+        },
+        /**
+         * Loại combobox hiển thị dropdown phía dưới
+         * Author: TrangDTT (07/06/2023)
+         */
+        isBottom: function(){
+            return this.comboboxType === MISA_ENUMS.COMBOBOX_TYPE.BOTTOM;
         }
     },
     methods: {
@@ -222,6 +237,13 @@ export default {
             this.closeListOfOptions();
         },
         /**
+         * Xử lý focus combobox
+         * Author: TrangDTT (10/06/2023)
+         */
+        focusInput: function(){
+            this.$refs.txtCombobox.focus();
+        },
+        /**
          * Hiển thị danh sách lựa chọn
          * Author: TrangDTT (01/05/2023)
          */
@@ -236,6 +258,11 @@ export default {
         }
     },
     props: {
+        // Loại combobox
+        comboboxType: {
+            type: Number,
+            default: MISA_ENUMS.COMBOBOX_TYPE.BOTTOM
+        },
         // Nhãn combobox
         label: {
             type: String,
@@ -283,6 +310,8 @@ export default {
             MISA_RESOURCES: MISA_RESOURCES,
             // Helpers
             MISA_HELPERS: MISA_HELPERS,
+            // Enums
+            MISA_ENUMS: MISA_ENUMS,
             // Icon class
             ICON_CLASS: MISA_RESOURCES.ICON_CLASS,
             // Tooltip text

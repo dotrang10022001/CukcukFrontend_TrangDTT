@@ -1,4 +1,5 @@
 import MISA_ENUMS from "./enum";
+import { v4 as uuidv4 } from 'uuid';
 const MISA_RESOURCES = {
     // Text cho tooltip
     TOOLTIP_TEXT: {
@@ -13,11 +14,12 @@ const MISA_RESOURCES = {
         FIRST_PAGE: "Trang đầu",
         PREVIOUS_PAGE: "Trang trước",
         NEXT_PAGE: "Trang tiếp",
-        ADD: "Ctrl + A",
+        ADD: "Ctrl + G",
         EDIT: "Ctrl + E",
         REPLICATION: "Ctrl + R",
         RELOAD: "Ctrl + L",
-        DELETE: "Ctrl + D"
+        DELETE: "Ctrl + D",
+        EXPORT: "Ctrl + P"
     },
     // Thông tin toast thông báo
     TOAST: {
@@ -82,7 +84,9 @@ const MISA_RESOURCES = {
         // Màu chính
         PRIMARY: "#0072BC",
         // Màu cho nút cảnh báo thao tác
-        DANGEROUS: "#E04742"
+        DANGEROUS: "#E04742",
+        // Màu phụ
+        SECONDARY: "#50B83C"
     },
     // Lớp icon
     ICON_CLASS: {
@@ -121,7 +125,9 @@ const MISA_RESOURCES = {
         // Trang đầu
         FIRST_PAGE: 'fa-solid fa-angles-left',
         // Trang cuối
-        LAST_PAGE: 'fa-solid fa-angles-right'
+        LAST_PAGE: 'fa-solid fa-angles-right',
+        // Xuất khẩu
+        EXPORT: 'fa-solid fa-file-arrow-down'
     },
     // Thông tin lỗi xác thực chung
     VALIDATION_ERROR: {
@@ -131,6 +137,8 @@ const MISA_RESOURCES = {
         INCORRECT_FORMAT: " không đúng định dạng",
         // Không hợp lệ
         INVALID: " không hợp lệ",
+        // Vượt quá độ dài cho phep
+        EXCEED_LENGTH: " có độ dài không được vượt quá ",
         // Không có trong danh sách
         NOT_EXIST: " không có tên trong danh sách",
         // Yêu cầu nhập tên nguyên vật liệu trước
@@ -148,6 +156,8 @@ const MISA_RESOURCES = {
     VALIDATION_RULE: {
         // Bắt buộc
         REQUIRED: "isRequired",
+        // Độ dài tối đa
+        MAX_LENGTH: "maxLength",
         // Mã nguyên vật liệu
         MATERIAL_CODE: "isMaterialCode",
         // Tên nguyên vật liệu
@@ -179,7 +189,8 @@ const MISA_RESOURCES = {
         GET_DATA: "Lấy danh sách ",
         EDIT: "Sửa thông tin ",
         ADD: "Thêm mới ",
-        REPLICATION: "Nhân bản "
+        REPLICATION: "Nhân bản ",
+        EXPORT: "Xuất danh sách "
     },
     // Thông báo
     MESSAGE: {
@@ -252,8 +263,8 @@ const MISA_RESOURCES = {
     },
     // Phép tính
     CALCULATOR: {
-        MULTIPLY: "Phép nhân",
-        DIVIDE: "Phép chia"
+        MULTIPLY: "*",
+        DIVIDE: "/"
     },
     // Trống
     UUID_EMPTY: '00000000-0000-0000-0000-000000000000',
@@ -308,8 +319,8 @@ const MISA_RESOURCES = {
     ],
     // Danh sách các phép toán dùng cho dropdown trong popup thêm/sửa/nhân bản
     LIST_OF_CALCULATORS: [
-        { key: MISA_ENUMS.CALCULATOR.MULTIPLY, value: "Phép nhân" },
-        { key: MISA_ENUMS.CALCULATOR.DIVIDE, value: "Phép chia" }
+        { key: MISA_ENUMS.CALCULATOR.MULTIPLY, value: "*" },
+        { key: MISA_ENUMS.CALCULATOR.DIVIDE, value: "/" }
     ],
     // Danh sách các đơn vị thời hạn dùng cho dropdown trong popup thêm/sửa/nhân bản
     LIST_OF_EXPIRE_UNITS: [
@@ -319,5 +330,12 @@ const MISA_RESOURCES = {
     ],
     // Timeout cho toast message
     TOAST_TIME_OUT: 1000,
+    // Excel file
+    EXCEL_FILE: {
+        NAME: {
+            MATERIAL: `NGUYENVATLIEU-${uuidv4()}.xlsx`
+        },
+        TYPE: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    }
 }
 export default MISA_RESOURCES;

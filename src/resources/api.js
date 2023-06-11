@@ -4,6 +4,6 @@ const MISA_API_URLS = {
     // API URL cho môi trường PRODUCTION
     PRO_URL: "",
     // Time out
-    TIMEOUT: 5000,
+    TIMEOUT: 10000,
 }
 export default MISA_API_URLS;

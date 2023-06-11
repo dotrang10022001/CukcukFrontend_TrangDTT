@@ -13,6 +13,7 @@ import MISAToast from '@/components/base/MISAToast.vue';
 import MISAInput from '@/components/base/MISAInput.vue';
 import MISACombobox from '@/components/base/MISACombobox.vue';
 import MISADropdown from '@/components/base/MISADropdown.vue';
+import MISATextarea from '@/components/base/MISATextarea.vue';
 
 // Import directives
 import CLICK_OUTSIDE from './directives/click-outside';
@@ -28,6 +29,7 @@ app.component("MISAToast", MISAToast);
 app.component("MISAInput", MISAInput);
 app.component("MISACombobox", MISACombobox);
 app.component("MISADropdown", MISADropdown);
+app.component("MISATextarea", MISATextarea);
 
 // Đăng ký directive click outside
 app.directive("click-outside", CLICK_OUTSIDE);

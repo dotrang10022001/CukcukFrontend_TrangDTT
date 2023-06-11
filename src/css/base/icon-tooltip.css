@@ -9,7 +9,12 @@
     z-index: 10;
 }
 
-.icon-and-tooltip span:hover+.tooltip{
+.icon-and-tooltip .icon{
+    width: 18px;
+    line-height: 27px;
+}
+
+.icon-and-tooltip .icon:hover+.tooltip{
     display: block;
     opacity: 1;
 }

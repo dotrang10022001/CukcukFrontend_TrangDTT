@@ -1,6 +1,7 @@
 <template>
     <div class="popup-container">
-        <div class="popup" v-click-outside="closeMaterialInfoPopup">
+        <div class="popup" v-click-outside="closeMaterialInfoPopup" @keydown.esc="closeMaterialInfoPopup"
+            @keydown.ctrl.s.prevent="handleClickButtonSave" @keydown.alt.s.prevent="handleClickButtonSaveAndAdd">
             <div class="popup__header">
                 <div class="popup__title">
                     {{ title }}
@@ -64,7 +65,7 @@
                 <div class="popup__content--left">
                     <div class="popup__group popup__group--expire">
                         <MISAInput label="Thời hạn" v-model="materialInfo.expireValue"
-                            :inputType="MISA_ENUMS.INPUT_TYPE.INTEGER" :maxLength="8"></MISAInput>
+                            type="number"></MISAInput>
                         <MISADropdown ref="txtExpireUnit" v-model="materialInfo.expireUnitName"
                             v-model:selectedKey="materialInfo.expireUnit"></MISADropdown>
                     </div>
@@ -73,13 +74,12 @@
                     <div class="popup__group popup__group--miniquantity">
                         <MISAInput label="SL tồn tối thiểu" tooltipText="Số lượng tồn kho tối thiểu"
                             v-model="materialInfo.miniQuantity" class="text-align--right"
-                            :inputType="MISA_ENUMS.INPUT_TYPE.DECIMAL" :maxLength="15">
+                            type="number">
                         </MISAInput>
                     </div>
                 </div>
                 <div class="popup__group popup__group--note">
-                    <label class="input__label">Ghi chú</label>
-                    <textarea class="input__content" v-model="materialInfo.note"></textarea>
+                    <MISATextarea label="Ghi chú" ref="txtNote" v-model="materialInfo.note" v-model:error="validateErrorInfo.note" v-model:validationRule="validationRule.note"></MISATextarea>
                 </div>
             </div>
             <div class="conversion-container">
@@ -96,7 +96,9 @@
                                 <th width="25%">Đơn vị chuyển đổi</th>
                                 <th width="15%">Tỷ lệ chuyển đổi</th>
                                 <th width="14%">Phép tính</th>
-                                <th width="25%">Mô tả</th>
+                                <th width="25%"
+                                    :class="{ 'border-right--none': materialInfo.property == MISA_ENUMS.PROPERTY.MATERIAL }">
+                                    Mô tả</th>
                                 <th width="13%" v-show="materialInfo.property != MISA_ENUMS.PROPERTY.MATERIAL">Là đơn vị bán
                                 </th>
                             </tr>
@@ -107,17 +109,19 @@
                                 <td>
                                     <MISACombobox ref="txtConversion" v-model:selectedKey="item.unitID"
                                         v-model="item.unitName" name="unit"
-                                        v-on:requestOpenAddPopup="handleRequestOpenAddPopup" :canAdd="true"></MISACombobox>
+                                        v-on:requestOpenAddPopup="handleRequestOpenAddPopup" :canAdd="true"
+                                        ></MISACombobox>
                                 </td>
                                 <td>
-                                    <MISAInput v-model="item.conversionRate" :inputType="MISA_ENUMS.INPUT_TYPE.DECIMAL"
-                                        :maxLength="8"></MISAInput>
+                                    <MISAInput v-model="item.conversionRate" type="number"
+                                        ></MISAInput>
                                 </td>
                                 <td>
                                     <MISADropdown ref="txtCalculator" v-model:selectedKey="item.calculator"
                                         v-model="item.calculatorName"></MISADropdown>
                                 </td>
-                                <td><input type="text" v-model="item.description" /></td>
+                                <td :class="{ 'border-right--none': materialInfo.property == MISA_ENUMS.PROPERTY.MATERIAL }">
+                                    <input type="text" v-model="item.description" /></td>
                                 <td v-show="materialInfo.property != MISA_ENUMS.PROPERTY.MATERIAL">
                                     <div class="checkbox-container"><input type="checkbox" v-model="item.isVendor" /></div>
                                 </td>
@@ -184,43 +188,16 @@ import CategoryDetail from '@/components/categories/CategoryDetail.vue';
 export default {
     name: "MaterialDetail",
     props: ["popupType", "data"],
-    beforeMount() {
-        // Đăng ký sự kiện gõ phím tắt
-        document.addEventListener("keydown", this.handleOnKeyboardShortcuts.bind(this), true);
-    },
     mounted() {
         // Khởi tạo thông tin popup nguyên vật liệu
         this.initMaterialInfoPopup();
         this.$refs.txtMaterialName.focusInput();
-    },
-    unmounted() {
-        // Hủy bỏ sự kiện nhấn phím tắt
-        document.removeEventListener("keydown", this.handleOnKeyboardShortcuts, true)
     },
     updated() {
         // Khởi tạo các trường nhập đơn vị chuyển đổi
         this.initConversionInput();
     },
     methods: {
-        /**
-         * Xử lý sự kiện gõ các phím tắt
-         * @param {*} event Sự kiện gõ phím
-         * Author: TrangDTT (06/06/2023)
-         */
-        handleOnKeyboardShortcuts: function (event) {
-            // event.stopPropagation();
-            if (event.key == 'Escape') this.closeMaterialInfoPopup();
-            // Phím tắt cho thao tác cất
-            if (event.ctrlKey && event.key == 's') {
-                event.preventDefault();
-                this.handleClickButtonSave();
-            }
-            // Phím tắt cho thao tác cất và thêm
-            if (event.altKey && event.key == 's') {
-                event.preventDefault();
-                this.handleClickButtonSaveAndAdd();
-            }
-        },
         /**
          * Khởi tạo thông tin popup nguyên vật liệu
          * Author: TrangDTT (29/05/2023)
@@ -261,11 +238,6 @@ export default {
                     for (let key in data) {
                         this.materialInfo[key] = data[key];
                     }
-                    this.materialInfo["expireValue"] = MISA_HELPERS.FORMAT_INTEGER_TO_DISPLAY(!this.materialInfo["expireValue"]? "" : this.materialInfo["expireValue"].toString());
-                    this.materialInfo["miniQuantity"] = MISA_HELPERS.FORMAT_DECIMAL_TO_DISPLAY(!this.materialInfo["miniQuantity"]? "" : this.materialInfo["miniQuantity"].toString());
-                    this.materialInfo["listOfConversions"].forEach(element => {
-                        element.conversionRate = MISA_HELPERS.FORMAT_DECIMAL_TO_DISPLAY(element.conversionRate.toString());
-                    });
                 }
                 this.oldMaterialInfo = JSON.stringify(this.materialInfo);
             } catch (error) {
@@ -408,8 +380,8 @@ export default {
          * Author: TrangDTT (03/06/2023)
          */
         initConversionInput: function () {
-            let index = this.materialInfo.listOfConversions.length - 1;
-            if (index >= 0) {
+            let size = this.materialInfo.listOfConversions.length; 
+            for (let index = 0; index < size; index++) {
                 this.$refs.txtConversion[index].setListOfOptions(this.listOfConversions);
                 this.$refs.txtCalculator[index].setListOfOptions(MISA_RESOURCES.LIST_OF_CALCULATORS);
             }
@@ -418,18 +390,19 @@ export default {
          * Xử lý sự kiện thêm dòng
          * Author: TrangDTT (31/05/2023)
          */
-        handleClickAddLine: function () {
+        handleClickAddLine: async function () {
             let conversion = {
                 conversionID: uuidv4(),
                 unitID: "",
-                conversionRate: "1,00",
+                conversionRate: 1,
                 calculator: MISA_ENUMS.CALCULATOR.MULTIPLY,
                 description: "",
                 isVendor: false,
                 unitName: "",
                 calculatorName: MISA_RESOURCES.CALCULATOR.MULTIPLY,
             };
-            this.materialInfo.listOfConversions.push(conversion);
+            await this.materialInfo.listOfConversions.push(conversion);
+            this.$refs.txtConversion[this.materialInfo.listOfConversions.length-1].focusInput();
         },
         /**
          * Xử lý sự kiện xóa dòng
@@ -513,6 +486,7 @@ export default {
             this.materialInfo.expireUnit = MISA_ENUMS.EXPIRE_UNIT.DAY;
             this.materialInfo.expireUnitName = MISA_RESOURCES.EXPIRE_UNIT.DAY;
             this.materialInfo.listOfConversions = [];
+            this.oldMaterialInfo = JSON.stringify(this.materialInfo);
         },
         /**
          * Kiểm tra đơn vị chuyển đổi
@@ -564,7 +538,7 @@ export default {
                     break;
                 }
                 // Kiểm tra tỷ lệ chuyển đổi
-                if (MISA_HELPERS.FORMAT_DECIMAL_TO_DATA(conversion.conversionRate) == 0) {
+                if (Number(conversion.conversionRate) == 0) {
                     listOfErrors.push(MISA_RESOURCES.VALIDATION_ERROR.CONVERSION_RATE);
                     break;
                 }
@@ -628,17 +602,24 @@ export default {
                 }
 
                 // Format lại một số trường dữ liệu đặc biệt
-                data["expireValue"] = MISA_HELPERS.FORMAT_INTEGER_TO_DATA(data["expireValue"]);
-                data["miniQuantity"] = MISA_HELPERS.FORMAT_DECIMAL_TO_DATA(data["miniQuantity"]);
+                data["expireValue"] = (data["expireValue"] == "") ? null : Number(data["expireValue"]);
+                data["miniQuantity"] = (data["miniQuantity"] == "") ? null : Number(data["miniQuantity"]);
                 if (data["storeID"] == "") data["storeID"] = null;
                 if (data["categoryID"] == "") data["categoryID"] = null;
                 if (data.unitID == "") data.unitID = MISA_RESOURCES.UUID_EMPTY;
-                data['listOfConversions'].forEach(element => {
-                    element.conversionRate = MISA_HELPERS.FORMAT_DECIMAL_TO_DATA(element.conversionRate);
-                });
-
-                data.listOfConversions.forEach(conversion => {
-                    conversion.conversionRate = Number(conversion.conversionRate);
+                data['listOfConversions'] = [];
+                this.materialInfo.listOfConversions.forEach(element => {
+                    let conversion = {
+                        conversionID: uuidv4(),
+                        unitID: element.unitID,
+                        conversionRate: (element.conversionRate == "") ? null : Number(element.conversionRate),
+                        calculator: element.calculator,
+                        description: element.description,
+                        isVendor: element.isVendor,
+                        unitName: element.unitName,
+                        calculatorName: element.calculatorName,
+                    };
+                    data['listOfConversions'].push(conversion);
                 });
 
                 // Nếu là thêm mới hoặc nhân bản
@@ -878,11 +859,11 @@ export default {
                 // Tên đơn vị
                 unitName: "",
                 // Giá trị thời hạn
-                expireValue: "0",
+                expireValue: 0,
                 // Ghi chú
                 note: "",
                 // Số lượng tồn kho tối thiểu
-                miniQuantity: "0,00",
+                miniQuantity: 0,
                 // Tên tính chất
                 propertyName: MISA_RESOURCES.PROPERTY.MATERIAL,
                 // Tên đơn vị thời hạn
@@ -902,16 +883,22 @@ export default {
                 materialName: "",
                 categoryName: "",
                 storeName: "",
-                unitName: ""
+                unitName: "",
+                note: ""
             },
             // Các luật cần validate
             validationRule: {
                 materialCode: {
                     isRequired: true,
-                    isMaterialCode: true
+                    isMaterialCode: true,
+                    maxLength: 20
                 },
                 materialName: {
                     isRequired: true,
+                    maxLength: 255
+                },
+                note: {
+                    maxLength: 255
                 },
             },
             // Enums
@@ -943,7 +930,7 @@ export default {
             // Toast message thành công
             successToast: MISA_RESOURCES.TOAST.SUCCESS,
             // Danh sách tham chiếu các trường dữ liệu
-            listOfFieldRefs: ["txtMaterialName", "txtMaterialCode", "txtUnit", "txtCategory", "txtStore"],
+            listOfFieldRefs: ["txtMaterialName", "txtMaterialCode", "txtUnit", "txtCategory", "txtStore", "txtNote"],
             // Thông tin nguyên vật liệu cũ
             oldMaterialInfo: "",
             // Hiển thị popup thêm mới đơn vị
@@ -962,6 +949,4 @@ export default {
     emits: ["closeMaterialInfoPopup", "requestReloadData"]
 }
 </script>
-<style scoped>
-@import "@/css/materials/material-detail.css";
-</style>
+<style scoped>@import "@/css/materials/material-detail.css";</style>
